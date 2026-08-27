@@ -16,8 +16,8 @@ export function normalizeCollection(payload) {
   return [];
 }
 
-export async function getCollection(component) {
-  const response = await fetch(`${apiBaseUrl}/${component}/`);
+export async function getCollection(component, endpoint = '') {
+  const response = await fetch(endpoint || `${apiBaseUrl}/${component}/`);
   if (!response.ok) {
     throw new Error(`Unable to load ${component} (${response.status})`);
   }

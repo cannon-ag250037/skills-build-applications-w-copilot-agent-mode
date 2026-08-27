@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { getCollection } from '../api';
 
+const usersEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/users/`
+  : '';
+
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    getCollection('users').then(setUsers).catch((loadError) => setError(loadError.message));
+    getCollection('users', usersEndpoint).then(setUsers).catch((loadError) => setError(loadError.message));
   }, []);
 
   if (error) return <p className="status error">{error}</p>;
